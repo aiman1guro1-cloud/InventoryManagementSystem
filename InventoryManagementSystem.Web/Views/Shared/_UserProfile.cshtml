@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using InventoryManagementSystem.Core.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@if (SignInManager.IsSignedIn(User) && user != null)
+{
+    <div class="user-info">
+        <div class="user-avatar">
+            @(!string.IsNullOrEmpty(user.FirstName) ? user.FirstName.Substring(0, 1) : "U")
+        </div>
+        <div class="user-details">
+            <h4>@user.FirstName @user.LastName</h4>
+            <p>@user.Email</p>
+        </div>
+    </div>
+    <div class="user-menu">
+        <a asp-controller="Account" asp-action="Profile" class="user-menu-item">
+            <i class="bi bi-person"></i> Profile
+        </a>
+        <a asp-controller="Account" asp-action="ChangePassword" class="user-menu-item">
+            <i class="bi bi-key"></i> Change Password
+        </a>
+        <a asp-controller="Checkout" asp-action="History" class="user-menu-item">
+            <i class="bi bi-clock-history"></i> Orders
+        </a>
+        <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="user-menu-item" style="width:100%; background:none; border:none; cursor:pointer;">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="d-flex gap-2">
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm">Login</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline btn-sm">Register</a>
+    </div>
+}

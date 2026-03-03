@@ -1,0 +1,96 @@
+﻿@model InventoryManagementSystem.Core.Entities.Supplier
+
+@{
+    ViewData["Title"] = "Supplier Details";
+}
+
+<div class="container">
+    <h1 class="mt-4">Supplier Details</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Email)</dt>
+                        <dd class="col-sm-8">
+                            <a href="mailto:@Model.Email">@Html.DisplayFor(model => model.Email)</a>
+                        </dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Phone)</dt>
+                        <dd class="col-sm-8">
+                            <a href="tel:@Model.Phone">@Html.DisplayFor(model => model.Phone)</a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Address)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Address)</dd>
+
+                        <dt class="col-sm-4">Created Date</dt>
+                        <dd class="col-sm-8">@Model.CreatedAt.ToShortDateString()</dd>
+
+                        @if (Model.UpdatedAt.HasValue)
+                        {
+                            <dt class="col-sm-4">Last Updated</dt>
+                            <dd class="col-sm-8">@Model.UpdatedAt.Value.ToShortDateString()</dd>
+                        }
+
+                        <dt class="col-sm-4">Products Supplied</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-info">@ViewBag.ProductCount</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            @if (ViewBag.ProductCount > 0)
+            {
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5>Products from this Supplier</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>SKU</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in ViewBag.Products)
+                                {
+                                    <tr>
+                                        <td>@product.Name</td>
+                                        <td>@product.SKU</td>
+                                        <td>@product.Price.ToString("C")</td>
+                                        <td>
+                                            <span class="@(product.QuantityInStock <= product.MinimumStockLevel ? "text-danger" : "")">
+                                                @product.QuantityInStock
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            }
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

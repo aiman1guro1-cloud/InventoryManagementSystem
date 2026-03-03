@@ -1,0 +1,172 @@
+﻿@using InventoryManagementSystem.Web.ViewModels
+@model InventoryManagementSystem.Web.ViewModels.DeveloperInfoViewModel
+
+@{
+    var developer = new DeveloperInfoViewModel
+    {
+        Name = "Your Full Name",
+        Title = "Full Stack Developer",
+        Bio = "Your custom bio here...",
+        Email = "your.email@example.com",
+        Phone = "+63 912 345 6789",
+        FacebookUrl = "https://facebook.com/yourprofile",
+        LinkedInUrl = "https://linkedin.com/in/yourprofile",
+        GitHubUrl = "https://github.com/yourprofile",
+        // ... other customizations
+    };
+    ViewData["Title"] = "Developer";
+}
+
+<!-- Developer Hero -->
+<section class="bg-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Meet The Developer</h1>
+        <p class="lead">The mind behind this Inventory Management System</p>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Profile Sidebar -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body text-center p-4">
+                    <!-- Profile Image Placeholder -->
+                    <div class="mx-auto mb-4 bg-light rounded-circle d-flex align-items-center justify-content-center"
+                         style="width: 150px; height: 150px; border: 4px solid #0d6efd;">
+                        <i class="bi bi-person-circle text-primary" style="font-size: 80px;"></i>
+                    </div>
+
+                    <h3 class="fw-bold">@Model.Name</h3>
+                    <p class="text-primary mb-2">@Model.Title</p>
+                    <p class="text-muted small">@Model.Location</p>
+
+                    <!-- Social Links -->
+                    <div class="d-flex justify-content-center gap-3 mb-4">
+                        <a href="@Model.FacebookUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="@Model.LinkedInUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="@Model.GitHubUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="@Model.TwitterUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="text-start border-top pt-3">
+                        <p class="mb-2">
+                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                            <a href="mailto:@Model.Email">@Model.Email</a>
+                        </p>
+                        <p class="mb-2">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                            <a href="tel:@Model.Phone">@Model.Phone</a>
+                        </p>
+                        <p class="mb-0">
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            @Model.Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Card -->
+            <div class="card border-0 shadow-lg mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-stars"></i> Skills & Technologies</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <div class="mb-2">
+                            <span>@skill</span>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Bio -->
+            <div class="card border-0 shadow-lg mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-person-badge"></i> About Me</h5>
+                </div>
+                <div class="card-body">
+                    <p class="lead">@Model.Bio</p>
+                    <p>I'm a passionate developer who loves building practical solutions to real-world problems. This Inventory Management System represents my commitment to clean code, user-friendly design, and robust functionality.</p>
+                    <p>With @Model.YearsExperience+ years of experience in web development, I specialize in building full-stack applications using Microsoft technologies. This project showcases my ability to create complex systems with features like real-time communication, secure authentication, and professional reporting.</p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="card border-0 shadow-sm text-center p-3">
+                        <h3 class="text-primary fw-bold">@Model.ProjectsCompleted</h3>
+                        <small class="text-muted">Projects</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card border-0 shadow-sm text-center p-3">
+                        <h3 class="text-primary fw-bold">@Model.YearsExperience</h3>
+                        <small class="text-muted">Years Exp</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card border-0 shadow-sm text-center p-3">
+                        <h3 class="text-primary fw-bold">@String.Format("{0:N0}", Model.LinesOfCode)</h3>
+                        <small class="text-muted">Lines of Code</small>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="card border-0 shadow-sm text-center p-3">
+                        <h3 class="text-primary fw-bold">@Model.HappyClients</h3>
+                        <small class="text-muted">Happy Clients</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Development Timeline</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        @foreach (var item in Model.Timeline)
+                        {
+                            <div class="d-flex gap-3 mb-4">
+                                <div class="timeline-year bg-primary text-white rounded-3 px-3 py-2 fw-bold" style="min-width: 80px;">
+                                    @item.Year
+                                </div>
+                                <div>
+                                    <h5>@item.Title</h5>
+                                    <p class="text-muted">@item.Description</p>
+                                </div>
+                            </div>
+                        }
+                        <div class="d-flex gap-3">
+                            <div class="timeline-year bg-success text-white rounded-3 px-3 py-2 fw-bold" style="min-width: 80px;">
+                                Present
+                            </div>
+                            <div>
+                                <h5>Continuous Improvement</h5>
+                                <p class="text-muted">Adding new features and optimizing performance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

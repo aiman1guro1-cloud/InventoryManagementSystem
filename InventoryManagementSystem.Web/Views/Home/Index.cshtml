@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using InventoryManagementSystem.Core.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model InventoryManagementSystem.Web.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="bi bi-box-seam"></i>
+        </div>
+        <div class="stat-content">
+            <h3>Total Products</h3>
+            <div class="value">@Model.TotalProducts</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <div class="stat-content">
+            <h3>Low Stock</h3>
+            <div class="value">@Model.LowStockProducts</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="bi bi-tags"></i>
+        </div>
+        <div class="stat-content">
+            <h3>Categories</h3>
+            <div class="value">@Model.TotalCategories</div>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="bi bi-truck"></i>
+        </div>
+        <div class="stat-content">
+            <h3>Suppliers</h3>
+            <div class="value">@Model.TotalSuppliers</div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Products -->
+<div class="card">
+    <div class="card-header">
+        <h2>Recent Products</h2>
+        <a asp-controller="Products" asp-action="Index" class="btn btn-outline btn-sm">
+            View All <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>SKU</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.RecentProducts)
+                {
+                    <tr>
+                        <td class="fw-600">@product.Name</td>
+                        <td><span style="color:#2563eb;">@product.SKU</span></td>
+                        <td>$@product.Price.ToString("N2")</td>
+                        <td>@product.QuantityInStock units</td>
+                        <td>
+                            @if (product.QuantityInStock <= product.MinimumStockLevel)
+                            {
+                                <span class="badge badge-warning">Low Stock</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">In Stock</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="d-flex justify-between align-center mt-3">
+    <div class="d-flex gap-2">
+        <a asp-controller="Products" asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> New Product
+        </a>
+        <a asp-controller="Categories" asp-action="Create" class="btn btn-outline">
+            <i class="bi bi-plus-lg"></i> New Category
+        </a>
+    </div>
+    <div class="text-muted" style="font-size:13px;">
+        <i class="bi bi-clock"></i> Last updated: @DateTime.Now.ToString("MMM dd, yyyy HH:mm")
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model InventoryManagementSystem.Core.Entities.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="container">
+    <h1 class="mt-4">Category Details</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt class="col-sm-3">Created Date</dt>
+                <dd class="col-sm-9">@Model.CreatedAt.ToShortDateString()</dd>
+
+                @if (Model.UpdatedAt.HasValue)
+                {
+                    <dt class="col-sm-3">Last Updated</dt>
+                    <dd class="col-sm-9">@Model.UpdatedAt.Value.ToShortDateString()</dd>
+                }
+
+                <dt class="col-sm-3">Products Count</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-info">@ViewBag.ProductCount</span>
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            }
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

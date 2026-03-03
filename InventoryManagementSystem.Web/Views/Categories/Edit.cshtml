@@ -1,0 +1,65 @@
+﻿@model InventoryManagementSystem.Core.Entities.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="container">
+    <h1 class="mt-4">Edit Category</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0">Edit Category: @Model.Name</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreatedAt" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Save Changes" class="btn btn-warning" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Category Info</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Created:</strong> @Model.CreatedAt.ToShortDateString()</p>
+                    @if (Model.UpdatedAt.HasValue)
+                    {
+                        <p><strong>Last Updated:</strong> @Model.UpdatedAt.Value.ToShortDateString()</p>
+                    }
+                    <p><strong>Products in this category:</strong> <span class="badge bg-info">@ViewBag.ProductCount</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

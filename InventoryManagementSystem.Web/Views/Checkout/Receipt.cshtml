@@ -1,0 +1,115 @@
+﻿@model InventoryManagementSystem.Core.Entities.Order
+
+@{
+    ViewData["Title"] = "Order Receipt";
+}
+
+<div class="container">
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white text-center">
+            <h2>ORDER CONFIRMATION</h2>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                <h3 class="mt-2">Thank You For Your Order!</h3>
+                <p class="text-muted">Your order has been placed successfully.</p>
+            </div>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            <!-- Receipt Content -->
+            <div class="receipt" style="max-width: 800px; margin: 0 auto; padding: 20px; border: 1px solid #ddd;">
+                <div class="text-center mb-4">
+                    <h2>INVENTORY MANAGEMENT SYSTEM</h2>
+                    <p>123 Business Street, City, State 12345</p>
+                    <p>Tel: (123) 456-7890 | Email: sales@inventory.com</p>
+                </div>
+
+                <hr />
+
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <strong>Receipt Number:</strong> @Model.OrderNumber<br />
+                        <strong>Date:</strong> @Model.OrderDate.ToString("MMMM dd, yyyy hh:mm tt")<br />
+                        <strong>Customer:</strong> @Model.CustomerName
+                    </div>
+                    <div class="col-6 text-end">
+                        <strong>Payment Method:</strong> @Model.PaymentMethod<br />
+                        <strong>Status:</strong> <span class="badge bg-success">@Model.OrderStatus</span>
+                    </div>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Item</th>
+                            <th>SKU</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.ProductSKU</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.UnitPrice.ToString("C")</td>
+                                <td>@item.TotalPrice.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-6 offset-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Subtotal:</strong></td>
+                                <td class="text-end">@Model.Subtotal.ToString("C")</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tax (10%):</strong></td>
+                                <td class="text-end">@Model.TaxAmount.ToString("C")</td>
+                            </tr>
+                            <tr class="border-top">
+                                <td><h5>TOTAL:</h5></td>
+                                <td class="text-end"><h5 class="text-success">@Model.TotalAmount.ToString("C")</h5></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <div class="alert alert-info mt-3">
+                        <strong>Notes:</strong> @Model.Notes
+                    </div>
+                }
+
+                <div class="text-center mt-4 text-muted">
+                    <p>This is a computer-generated receipt. No signature required.</p>
+                    <p>Thank you for your business!</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="DownloadReceipt" asp-route-orderId="@Model.Id" class="btn btn-primary">
+                    <i class="bi bi-download"></i> Download PDF Receipt
+                </a>
+                <a asp-action="History" class="btn btn-outline-secondary">
+                    <i class="bi bi-clock-history"></i> View Order History
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success">
+                    <i class="bi bi-house"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

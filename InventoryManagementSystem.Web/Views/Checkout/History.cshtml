@@ -1,0 +1,41 @@
+﻿@model IEnumerable<InventoryManagementSystem.Core.Entities.Order>
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<div class="container">
+    <h1 class="mt-4">Order History</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            You haven't placed any orders yet.
+            <a asp-controller="Products" asp-action="Index">Start Shopping</a>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var order in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between">
+                            <span>Order #@order.OrderNumber</span>
+                            <span class="badge bg-success">@order.OrderStatus</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Date:</strong> @order.OrderDate.ToString("MMMM dd, yyyy")</p>
+                            <p><strong>Items:</strong> @order.OrderItems.Sum(i => i.Quantity) items</p>
+                            <p><strong>Total:</strong> <span class="text-success">@order.TotalAmount.ToString("C")</span></p>
+                            <a asp-action="Receipt" asp-route-orderId="@order.Id" class="btn btn-sm btn-info">
+                                View Receipt
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

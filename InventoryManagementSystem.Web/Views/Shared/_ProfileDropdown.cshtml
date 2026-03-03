@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using InventoryManagementSystem.Core.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+
+    <div class="profile-container">
+        <!-- Profile Button - Click to toggle menu -->
+        <button class="profile-button" id="profileButton">
+            <span class="profile-avatar">
+                <i class="bi bi-person"></i>
+            </span>
+            <span>@user?.UserName</span>
+            <i class="bi bi-chevron-down" style="font-size: 12px;"></i>
+        </button>
+
+        <!-- Profile Dropdown Menu -->
+        <div class="profile-menu" id="profileMenu">
+            <div class="menu-header">
+                <div class="user-name">@user?.FirstName @user?.LastName</div>
+                <div class="user-email">@user?.Email</div>
+            </div>
+
+            <div class="menu-items">
+                <a asp-controller="Account" asp-action="Profile" class="menu-item">
+                    <i class="bi bi-person"></i>
+                    My Profile
+                </a>
+                <a asp-controller="Account" asp-action="ChangePassword" class="menu-item">
+                    <i class="bi bi-key"></i>
+                    Change Password
+                </a>
+                <a asp-controller="Checkout" asp-action="History" class="menu-item">
+                    <i class="bi bi-clock-history"></i>
+                    Order History
+                </a>
+
+                <div class="menu-divider"></div>
+
+                <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" style="margin: 0;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="menu-item">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay to detect clicks outside -->
+    <div class="profile-overlay" id="profileOverlay"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileButton = document.getElementById('profileButton');
+            const profileMenu = document.getElementById('profileMenu');
+            const profileOverlay = document.getElementById('profileOverlay');
+
+            function toggleProfileMenu(show) {
+                if (show) {
+                    profileMenu.classList.add('show');
+                    profileOverlay.classList.add('show');
+                } else {
+                    profileMenu.classList.remove('show');
+                    profileOverlay.classList.remove('show');
+                }
+            }
+
+            // Toggle menu on button click
+            profileButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isShowing = profileMenu.classList.contains('show');
+                toggleProfileMenu(!isShowing);
+            });
+
+            // Close menu when clicking overlay
+            profileOverlay.addEventListener('click', function() {
+                toggleProfileMenu(false);
+            });
+
+            // Close menu when pressing Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && profileMenu.classList.contains('show')) {
+                    toggleProfileMenu(false);
+                }
+            });
+
+            // Handle logout
+            const logoutForm = document.getElementById('logoutForm');
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                });
+            }
+        });
+    </script>
+}
+else
+{
+    <div class="nav-right">
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline btn-sm">
+            <i class="bi bi-person-plus"></i> Register
+        </a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+    </div>
+}

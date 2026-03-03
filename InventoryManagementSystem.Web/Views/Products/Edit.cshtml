@@ -1,0 +1,136 @@
+﻿@model InventoryManagementSystem.Core.Entities.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container">
+    <h1 class="mt-4">Edit Product</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h5 class="mb-0">Edit Product: @Model.Name</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreatedAt" />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="SKU" class="control-label"></label>
+                                    <input asp-for="SKU" class="form-control" />
+                                    <span asp-validation-for="SKU" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Price" class="control-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                                    </div>
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="QuantityInStock" class="control-label"></label>
+                                    <input asp-for="QuantityInStock" class="form-control" type="number" />
+                                    <span asp-validation-for="QuantityInStock" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MinimumStockLevel" class="control-label"></label>
+                                    <input asp-for="MinimumStockLevel" class="form-control" type="number" />
+                                    <span asp-validation-for="MinimumStockLevel" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="CategoryId" class="control-label">Category</label>
+                                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                                        <option value="">-- Select Category --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="SupplierId" class="control-label">Supplier</label>
+                                    <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.Suppliers">
+                                        <option value="">-- Select Supplier --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Save Changes" class="btn btn-warning" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Product Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Created:</strong> @Model.CreatedAt.ToShortDateString()</p>
+                    @if (Model.UpdatedAt.HasValue)
+                    {
+                        <p><strong>Last Updated:</strong> @Model.UpdatedAt.Value.ToShortDateString()</p>
+                    }
+                    <p><strong>Current Stock Status:</strong></p>
+                    <div class="alert @(Model.QuantityInStock <= Model.MinimumStockLevel ? "alert-danger" : "alert-success") p-2">
+                        @if (Model.QuantityInStock <= 0)
+                        {
+                            <span>Out of Stock</span>
+                        }
+                        else if (Model.QuantityInStock <= Model.MinimumStockLevel)
+                        {
+                            <span>⚠️ Low Stock</span>
+                        }
+                        else
+                        {
+                            <span>✅ In Stock</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

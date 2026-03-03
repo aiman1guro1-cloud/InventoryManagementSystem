@@ -1,0 +1,435 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="about-container">
+    <!-- Hero Section -->
+    <div class="about-hero">
+        <div class="hero-content">
+            <h1>About InventorySystem</h1>
+            <p>A modern inventory management solution built with passion and precision</p>
+        </div>
+    </div>
+
+    <!-- Company Overview -->
+    <div class="about-section">
+        <div class="section-grid">
+            <div class="section-content">
+                <h2>Our Story</h2>
+                <p>The Inventory Management System was born from a simple idea: make inventory tracking simple, efficient, and collaborative. What started as a learning project evolved into a full-featured inventory solution with real-time chat, shopping cart functionality, and professional receipt generation.</p>
+                <p>Built with clean architecture and best practices, this system demonstrates the power of modern web development.</p>
+            </div>
+            <div class="section-stats">
+                <div class="stat-box">
+                    <div class="stat-number">@DateTime.Now.Year</div>
+                    <div class="stat-label">Project Launch</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Core Modules</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="about-section bg-light">
+        <h2 class="section-title">Technology Stack</h2>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <i class="bi bi-microsoft"></i>
+                <h3>ASP.NET Core 8</h3>
+                <p>MVC Framework</p>
+            </div>
+            <div class="tech-card">
+                <i class="bi bi-database"></i>
+                <h3>SQL Server</h3>
+                <p>Database</p>
+            </div>
+            <div class="tech-card">
+                <i class="bi bi-code-slash"></i>
+                <h3>Entity Framework</h3>
+                <p>ORM</p>
+            </div>
+            <div class="tech-card">
+                <i class="bi bi-bootstrap"></i>
+                <h3>Bootstrap 5</h3>
+                <p>Frontend</p>
+            </div>
+            <div class="tech-card">
+                <i class="bi bi-lightning-charge"></i>
+                <h3>SignalR</h3>
+                <p>Real-time Chat</p>
+            </div>
+            <div class="tech-card">
+                <i class="bi bi-shield-lock"></i>
+                <h3>Identity Core</h3>
+                <p>Authentication</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Section -->
+    <div class="about-section">
+        <h2 class="section-title">Meet The Developer</h2>
+        <div class="developer-card">
+            <div class="developer-avatar">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="developer-info">
+                <h3>Your Name Here</h3>
+                <p class="developer-title">Full Stack Developer</p>
+                <p class="developer-bio">Passionate developer building innovative inventory management solutions with .NET technologies.</p>
+                <div class="developer-social">
+                    <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="about-section bg-light">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="bi bi-box-seam"></i>
+                <h3>Inventory Management</h3>
+                <p>Complete CRUD operations for products, categories, and suppliers</p>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-chat-dots"></i>
+                <h3>Real-time Chat</h3>
+                <p>Communicate instantly with team members</p>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-cart3"></i>
+                <h3>Shopping Cart</h3>
+                <p>Add products and calculate totals with tax</p>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-receipt"></i>
+                <h3>Receipt Generation</h3>
+                <p>Professional receipts for all orders</p>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-shield-lock"></i>
+                <h3>Role-based Security</h3>
+                <p>Admin, Manager, Staff roles with permissions</p>
+            </div>
+            <div class="feature-item">
+                <i class="bi bi-graph-up"></i>
+                <h3>Dashboard Analytics</h3>
+                <p>Real-time statistics and low stock alerts</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="about-section">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="bi bi-envelope"></i>
+                <h3>Email</h3>
+                <p>developer@inventory.com</p>
+            </div>
+            <div class="contact-card">
+                <i class="bi bi-telephone"></i>
+                <h3>Phone</h3>
+                <p>+63 912 345 6789</p>
+            </div>
+            <div class="contact-card">
+                <i class="bi bi-geo-alt"></i>
+                <h3>Location</h3>
+                <p>Philippines</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .about-hero {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        color: white;
+        padding: 60px 30px;
+        border-radius: 16px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+        margin-bottom: 16px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    .about-section {
+        padding: 60px 30px;
+    }
+
+    .bg-light {
+        background: #f8fafc;
+        border-radius: 16px;
+    }
+
+    .section-title {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1e293b;
+    }
+
+    .section-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .section-content h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #1e293b;
+    }
+
+    .section-content p {
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+
+    .section-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .stat-box {
+        background: white;
+        padding: 30px 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        border: 1px solid #e9eef2;
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2563eb;
+        margin-bottom: 8px;
+    }
+
+    .stat-label {
+        color: #64748b;
+        font-size: 14px;
+    }
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .tech-card {
+        background: white;
+        padding: 30px 20px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid #e9eef2;
+        transition: all 0.3s;
+    }
+
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .tech-card i {
+            font-size: 32px;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .tech-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .tech-card p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+    .developer-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        text-align: center;
+        border: 1px solid #e9eef2;
+    }
+
+    .developer-avatar {
+        width: 100px;
+        height: 100px;
+        background: #eef2ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+    }
+
+        .developer-avatar i {
+            font-size: 48px;
+            color: #2563eb;
+        }
+
+    .developer-info h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #1e293b;
+    }
+
+    .developer-title {
+        color: #2563eb;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+    .developer-bio {
+        color: #64748b;
+        margin-bottom: 24px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .developer-social {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    .social-link {
+        width: 40px;
+        height: 40px;
+        background: #f1f5f9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #64748b;
+        transition: all 0.3s;
+    }
+
+        .social-link:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .feature-item {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid #e9eef2;
+        transition: all 0.3s;
+    }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .feature-item i {
+            font-size: 36px;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        .feature-item p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+    }
+
+    .contact-card {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid #e9eef2;
+    }
+
+        .contact-card i {
+            font-size: 32px;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .contact-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .contact-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+    @@media (max-width: 768px) {
+        .section-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .about-hero {
+            padding: 40px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 28px;
+        }
+    }
+</style>

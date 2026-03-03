@@ -1,0 +1,104 @@
+﻿@model IEnumerable<InventoryManagementSystem.Core.Entities.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<!-- Header with actions -->
+<div class="d-flex justify-between align-center mb-3">
+    <div>
+        <h2 style="font-size:20px; font-weight:600; margin:0;">All Products</h2>
+        <p class="text-muted" style="margin-top:4px;">Manage your inventory products</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add Product
+    </a>
+</div>
+
+<!-- Search Card -->
+<div class="card" style="margin-bottom:24px;">
+    <div class="card-body" style="padding:20px;">
+        <form asp-action="Index" method="get" class="d-flex gap-2">
+            <select name="searchField" class="form-control" style="width:150px;">
+                <option value="all">All fields</option>
+                <option value="name">Name</option>
+                <option value="sku">SKU</option>
+                <option value="category">Category</option>
+            </select>
+            <input type="text" name="searchTerm" class="form-control"
+                   placeholder="Search products..." value="@ViewContext.HttpContext.Request.Query["searchTerm"]" />
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i> Search
+            </button>
+            <a asp-action="Index" class="btn btn-outline">Clear</a>
+        </form>
+    </div>
+</div>
+
+<!-- Products Table -->
+<div class="card">
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="fw-600">@item.Name</div>
+                            @if (!string.IsNullOrEmpty(item.Description))
+                            {
+                                <div style="font-size:12px; color:#64748b;">@item.Description</div>
+                            }
+                        </td>
+                        <td><span style="color:#2563eb; font-weight:500;">@item.SKU</span></td>
+                        <td>@item.Category?.Name</td>
+                        <td class="fw-600">$@item.Price.ToString("N2")</td>
+                        <td>@item.QuantityInStock</td>
+                        <td>
+                            @if (item.QuantityInStock <= item.MinimumStockLevel)
+                            {
+                                <span class="badge badge-warning">Low Stock</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">In Stock</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline btn-sm" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline btn-sm" title="Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline btn-sm" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="productId" value="@item.Id" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn btn-outline btn-sm" title="Add to cart">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

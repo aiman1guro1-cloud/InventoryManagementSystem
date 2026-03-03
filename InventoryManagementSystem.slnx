@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="InventoryManagementSystem.Core/InventoryManagementSystem.Core.csproj" />
+  <Project Path="InventoryManagementSystem.Infrastructure/InventoryManagementSystem.Infrastructure.csproj" />
+  <Project Path="InventoryManagementSystem.Web/InventoryManagementSystem.Web.csproj" />
+</Solution>

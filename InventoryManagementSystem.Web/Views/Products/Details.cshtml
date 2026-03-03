@@ -1,0 +1,90 @@
+﻿@model InventoryManagementSystem.Core.Entities.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+    <h1 class="mt-4">Product Details</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.SKU)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.SKU)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.QuantityInStock)</dt>
+                        <dd class="col-sm-8">
+                            <span class="@(Model.QuantityInStock <= Model.MinimumStockLevel ? "text-danger fw-bold" : "")">
+                                @Html.DisplayFor(model => model.QuantityInStock)
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.MinimumStockLevel)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.MinimumStockLevel)</dd>
+
+                        <dt class="col-sm-4">Category</dt>
+                        <dd class="col-sm-8">@Model.Category?.Name</dd>
+
+                        <dt class="col-sm-4">Supplier</dt>
+                        <dd class="col-sm-8">@Model.Supplier?.Name</dd>
+
+                        <dt class="col-sm-4">Created Date</dt>
+                        <dd class="col-sm-8">@Model.CreatedAt.ToShortDateString()</dd>
+
+                        @if (Model.UpdatedAt.HasValue)
+                        {
+                            <dt class="col-sm-4">Last Updated</dt>
+                            <dd class="col-sm-8">@Model.UpdatedAt.Value.ToShortDateString()</dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                    <dd>@Html.DisplayFor(model => model.Description)</dd>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="alert @(Model.QuantityInStock <= Model.MinimumStockLevel ? "alert-danger" : "alert-success")">
+                        <strong>Stock Status:</strong>
+                        @if (Model.QuantityInStock <= 0)
+                        {
+                            <span>Out of Stock</span>
+                        }
+                        else if (Model.QuantityInStock <= Model.MinimumStockLevel)
+                        {
+                            <span>Low Stock - Reorder Recommended</span>
+                        }
+                        else
+                        {
+                            <span>In Stock</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@using InventoryManagementSystem.Web.ViewModels
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Inventory Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/minimalist-theme.css" />
+</head>
+<body style="background: var(--bg-alt); display: flex; align-items: center; min-height: 100vh;">
+    <div class="container" style="max-width: 400px;">
+        <div class="card" style="padding: var(--space-xl);">
+            <div class="text-center mb-3">
+                <div style="font-size: 48px; color: var(--primary);">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <h2>Inventory<span class="text-primary">Pro</span></h2>
+                <p class="text-light">Sign in to your account</p>
+            </div>
+
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="form-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                    <span asp-validation-for="Password" class="form-error"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    <label asp-for="RememberMe" class="form-check-label"></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    <i class="bi bi-box-arrow-in-right"></i> Sign In
+                </button>
+
+                <div class="text-center">
+                    <p class="text-light">
+                        Don't have an account?
+                        <a asp-action="Register">Register here</a>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Demo credentials -->
+            <div class="mt-3 p-2" style="background: var(--bg-alt); border-radius: var(--radius-md);">
+                <p class="text-light mb-1" style="font-size: 12px;">Demo credentials:</p>
+                <div style="font-size: 12px;">
+                    <div><strong>Admin:</strong> admin@inventory.com / Admin@123</div>
+                    <div><strong>Manager:</strong> manager@inventory.com / Manager@123</div>
+                    <div><strong>Staff:</strong> staff@inventory.com / Staff@123</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<InventoryManagementSystem.Core.Entities.Supplier>
+
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<div class="container">
+    <h1 class="mt-4">Suppliers</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- CREATE + SEARCH -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <a asp-action="Create" class="btn btn-primary">
+                    Create New Supplier
+                </a>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <form asp-action="Index" method="get" class="d-flex">
+                <div class="input-group">
+                    <input type="text"
+                           name="searchTerm"
+                           class="form-control"
+                           placeholder="Search suppliers..."
+                           value="@ViewData["CurrentSearch"]" />
+
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+
+                    @if (!string.IsNullOrEmpty(ViewData["CurrentSearch"]?.ToString()))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            Clear
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SEARCH RESULT INFO -->
+    @if (!string.IsNullOrEmpty(ViewData["CurrentSearch"]?.ToString()))
+    {
+        <div class="alert alert-info">
+            Found <strong>@ViewBag.ResultsCount</strong> results for
+            "<strong>@ViewData["CurrentSearch"]</strong>"
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                    <th>@Html.DisplayNameFor(model => model.Address)</th>
+                    <th>Products</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Address)</td>
+
+                        <td>
+                            <span class="badge bg-info">
+                                @(item.Products?.Count ?? 0)
+                            </span>
+                        </td>
+
+                        <td>
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-sm btn-info">
+                                Details
+                            </a>
+
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-warning">
+                                    Edit
+                                </a>
+                            }
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-danger">
+                                    Delete
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
