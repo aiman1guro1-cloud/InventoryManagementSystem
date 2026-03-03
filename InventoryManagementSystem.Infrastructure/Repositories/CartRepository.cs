@@ -59,7 +59,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             else
             {
-                var cartItem = new CartItem
+                var cartITEM = new CartItem
                 {
                     CartId = cart.Id,
                     ProductId = productId,
@@ -69,7 +69,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                     UnitPrice = product.Price,
                     AddedAt = DateTime.UtcNow
                 };
-                await _context.CartItems.AddAsync(cartItem);
+                await _context.CartItems.AddAsync(cartITEM);
             }
 
             await _context.SaveChangesAsync();
