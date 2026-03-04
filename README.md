@@ -14,39 +14,7 @@ Enabling team communication with built-in chat
 
 Providing actionable insights through dashboard analytics
 
-🏛️ Architecture
-Clean Architecture (3 Layers)
-text
-┌─────────────────────────────────────────────────────────────┐
-│                    SOLUTION STRUCTURE                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                               │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  1. Presentation Layer (InventoryManagementSystem.Web) │    │
-│  │     - MVC Controllers & Views                          │    │
-│  │     - SignalR Hubs for real-time chat                  │    │
-│  │     - ViewModels for data transfer                     │    │
-│  │     - Bootstrap 5 + Custom CSS UI                      │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                   │
-│                           ▼                                   │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  2. Business Layer (InventoryManagementSystem.Core)   │    │
-│  │     - Entities (Product, Category, Supplier, etc.)    │    │
-│  │     - Interfaces (IRepository, IChatRepository, etc.) │    │
-│  │     - Domain logic and business rules                 │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                           │                                   │
-│                           ▼                                   │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  3. Data Layer (InventoryManagementSystem.Infrastructure)│    │
-│  │     - Entity Framework Core DbContext                  │    │
-│  │     - Repository implementations                       │    │
-│  │     - Database migrations                              │    │
-│  │     - SQL Server database                              │    │
-│  └─────────────────────────────────────────────────────┘    │
-│                                                               │
-└─────────────────────────────────────────────────────────────┘
+
 🔧 Technology Stack
 Category	Technologies
 Backend Framework	ASP.NET Core 8 MVC
@@ -164,68 +132,7 @@ Interactive elements
 
 Loading states
 
-📁 Project Structure
-text
-InventoryManagementSystem/
-├── src/
-│   ├── InventoryManagementSystem.Core/
-│   │   ├── Entities/
-│   │   │   ├── BaseEntity.cs
-│   │   │   ├── Product.cs
-│   │   │   ├── Category.cs
-│   │   │   ├── Supplier.cs
-│   │   │   ├── ApplicationUser.cs
-│   │   │   ├── ChatMessage.cs
-│   │   │   ├── UserConnection.cs
-│   │   │   ├── Cart.cs
-│   │   │   ├── CartItem.cs
-│   │   │   ├── Order.cs
-│   │   │   └── OrderItem.cs
-│   │   └── Interfaces/
-│   │       ├── IRepository.cs
-│   │       ├── IUserRepository.cs
-│   │       ├── IChatRepository.cs
-│   │       ├── ICartRepository.cs
-│   │       └── IOrderRepository.cs
-│   │
-│   ├── InventoryManagementSystem.Infrastructure/
-│   │   ├── Data/
-│   │   │   └── ApplicationDbContext.cs
-│   │   ├── Repositories/
-│   │   │   ├── Repository.cs
-│   │   │   ├── UserRepository.cs
-│   │   │   ├── ChatRepository.cs
-│   │   │   ├── CartRepository.cs
-│   │   │   └── OrderRepository.cs
-│   │   └── Migrations/
-│   │
-│   └── InventoryManagementSystem.Web/
-│       ├── Controllers/
-│       │   ├── HomeController.cs
-│       │   ├── ProductsController.cs
-│       │   ├── CategoriesController.cs
-│       │   ├── SuppliersController.cs
-│       │   ├── AccountController.cs
-│       │   ├── CartController.cs
-│       │   ├── CheckoutController.cs
-│       │   ├── ChatController.cs
-│       │   └── AboutUsController.cs
-│       ├── Views/
-│       │   ├── Home/
-│       │   ├── Products/
-│       │   ├── Categories/
-│       │   ├── Suppliers/
-│       │   ├── Account/
-│       │   ├── Cart/
-│       │   ├── Checkout/
-│       │   ├── AboutUs/
-│       │   └── Shared/
-│       ├── ViewModels/
-│       ├── Hubs/
-│       │   └── ChatHub.cs
-│       └── wwwroot/
-│           ├── css/
-│           └── js/
+
 🚀 Key Workflows
 Product Management Flow
 text
